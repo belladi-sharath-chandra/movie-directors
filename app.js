@@ -40,6 +40,8 @@ const convertDirectorDbObjectToResponseObject = (dbObject) => {
   };
 };
 
+//getting movie names from movie table
+
 app.get("/movies/", async (request, response) => {
   const getQuery = `
         SELECT movie_name FROM movie;
@@ -50,6 +52,8 @@ app.get("/movies/", async (request, response) => {
   );
 });
 
+//getting movie names for specific id from movie table
+
 app.get("/movies/:movieId/", async (request, response) => {
   const { movieId } = request.params;
   const getQuery = `
@@ -58,6 +62,8 @@ app.get("/movies/:movieId/", async (request, response) => {
   const movie = await db.get(getQuery);
   response.send(convertMovieDbObjectToResponseObject(movie));
 });
+
+//posting
 
 app.post("/movies/", async (request, response) => {
   const { directorId, movieName, leadActor } = request.body;
@@ -70,6 +76,8 @@ app.post("/movies/", async (request, response) => {
   await db.run(postQuery);
   response.send("Movie Successfully Added");
 });
+
+//PUT
 
 app.put("/movies/:movieId/", async (request, response) => {
   const { movieId } = request.params;
@@ -88,6 +96,8 @@ app.put("/movies/:movieId/", async (request, response) => {
   response.send("Movie Details Updated");
 });
 
+//DELETE
+
 app.delete("/movies/:movieId/", async (request, response) => {
   const { movieId } = request.params;
   const deleteQuery = `
@@ -100,6 +110,8 @@ app.delete("/movies/:movieId/", async (request, response) => {
   await db.run(deleteQuery);
   response.send("Movie Removed");
 });
+
+//GET
 
 app.get("/directors/", async (request, response) => {
   const getDirectorsQuery = `
@@ -115,6 +127,8 @@ app.get("/directors/", async (request, response) => {
     )
   );
 });
+
+//GET
 
 app.get("/directors/:directorId/movies/", async (request, response) => {
   const { directorId } = request.params;
